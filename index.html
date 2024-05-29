@@ -4,10 +4,6 @@
 </body>
 <script>
 
-function redirect() {
-    window.location.replace("https://creatorapp.zohopublic.com/universidaddelima/formularios/page-perma/Tarjeta_UL_trabajadores2/mgQe2dzMHpU9QbK82f0fNOZntHrMBv85tPMbR8G6RKOGetdrgURKGvvTQauBuvGAvnfC3HMJGErjz4NBT6rYvE0MqVyzDqMjF8Mk?Z="+FCC_ZID_CRM);
-}
-    
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const FCC_NOMBRE = urlParams.get('NAME')
@@ -25,19 +21,22 @@ TEL;TYPE=CELL:${FCC_TELEFONO}
 END:VCARD`;
 
     var FCC_BLOB = new Blob([FCC_vcardData], { type: 'text/vcard' });
-    var FCC_URL = window.URL.createObjectURL(FCC_BLOB);
+    var FCC_URL = URL.createObjectURL(FCC_BLOB);
 
     var FCC_LINK = document.createElement("a");
     FCC_LINK.setAttribute("href", FCC_URL);
     FCC_LINK.setAttribute("download", "contacto.vcf");
     FCC_LINK.style.visibility = 'hidden';
+    
     document.body.appendChild(FCC_LINK);
     FCC_LINK.click();
     document.body.removeChild(FCC_LINK);
 
     URL.revokeObjectURL(FCC_URL);
     
-    setTimeout(redirect, 5000);
+    setTimeout(function() {
+        window.location.replace("https://creatorapp.zohopublic.com/universidaddelima/formularios/page-perma/Tarjeta_UL_trabajadores2/mgQe2dzMHpU9QbK82f0fNOZntHrMBv85tPMbR8G6RKOGetdrgURKGvvTQauBuvGAvnfC3HMJGErjz4NBT6rYvE0MqVyzDqMjF8Mk?Z="+FCC_ZID_CRM);
+    }, 3000);
     /*
     window.location.replace("https://creatorapp.zohopublic.com/universidaddelima/formularios/page-perma/Tarjeta_UL_trabajadores2/mgQe2dzMHpU9QbK82f0fNOZntHrMBv85tPMbR8G6RKOGetdrgURKGvvTQauBuvGAvnfC3HMJGErjz4NBT6rYvE0MqVyzDqMjF8Mk?Z="+FCC_ZID_CRM);
     */
