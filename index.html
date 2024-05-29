@@ -4,39 +4,56 @@
 </body>
 <script>
 
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-const FCC_NOMBRE = urlParams.get('NAME')
-const FCC_APELLIDO = urlParams.get('APE')
-const FCC_EMAIL = urlParams.get('EMAIL')
-const FCC_TELEFONO = urlParams.get('TELF')
-const FCC_ZID_CRM = urlParams.get('Z')
+    function getURLParams() {
+        var queryString = window.location.search;
+        var urlParams = new URLSearchParams(queryString);
+        return {
+            FCC_NOMBRE: urlParams.get('NAME'),
+            FCC_APELLIDO : urlParams.get('APE'),
+            FCC_EMAIL : urlParams.get('EMAIL'),
+            FCC_TELEFONO : urlParams.get('TELF'),
+            FCC_ZID_CRM : urlParams.get('Z')
+        };
+    }
 
-    var FCC_vcardData = `BEGIN:VCARD
+    function createVCard(params) {
+        return `
+BEGIN:VCARD
 VERSION:3.0
-N:${FCC_APELLIDO};${FCC_NOMBRE};;;
-FN:${FCC_NOMBRE} ${FCC_APELLIDO}
-EMAIL;TYPE=INTERNET:${FCC_EMAIL}
-TEL;TYPE=CELL:${FCC_TELEFONO}
+N:${params.FCC_APELLIDO};${params.FCC_NOMBRE};;;
+FN:${params.FCC_NOMBRE} ${params.FCC_APELLIDO}
+EMAIL;TYPE=INTERNET:${params.FCC_EMAIL}
+TEL;TYPE=CELL:${params.FCC_TELEFONO}
 END:VCARD`;
+    }
 
-    var FCC_BLOB = new Blob([FCC_vcardData], { type: 'text/vcard' });
-    var FCC_URL = URL.createObjectURL(FCC_BLOB);
-
-    var FCC_LINK = document.createElement("a");
-    FCC_LINK.setAttribute("href", FCC_URL);
-    FCC_LINK.setAttribute("download", "contacto.vcf");
-    FCC_LINK.style.visibility = 'hidden';
+    async function downloadVCard(FCC_vcardData) {
+        var FCC_BLOB = new Blob([FCC_vcardData], { type: 'text/vcard' });
+        var FCC_URL = URL.createObjectURL(FCC_BLOB);
     
-    document.body.appendChild(FCC_LINK);
-    FCC_LINK.click();
-    document.body.removeChild(FCC_LINK);
+        var FCC_LINK = document.createElement("a");
+        FCC_LINK.setAttribute("href", FCC_URL);
+        FCC_LINK.setAttribute("download", "contacto.vcf");
+        FCC_LINK.style.visibility = 'hidden';
+        
+        document.body.appendChild(FCC_LINK);
+        FCC_LINK.click();
+        document.body.removeChild(FCC_LINK);
 
-    /*URL.revokeObjectURL(FCC_URL);*/
-    
-    /*
-    window.location.replace("https://creatorapp.zohopublic.com/universidaddelima/formularios/page-perma/Tarjeta_UL_trabajadores2/mgQe2dzMHpU9QbK82f0fNOZntHrMBv85tPMbR8G6RKOGetdrgURKGvvTQauBuvGAvnfC3HMJGErjz4NBT6rYvE0MqVyzDqMjF8Mk?Z="+FCC_ZID_CRM);
-    */
+        setTimeout(() => URL.revokeObjectURL(FCC_URL), 100);
+    }
+
+    function redirectAfterDownload(url) {
+        window.location.replace(url);
+    }
+
+    document.addEventListener("DOMContentLoaded", async function() {
+        var params = getUrlParams();
+        var vcard = createVCard(params);
+        await downloadVCard(vcard);
+        redirectAfterDownload("https://creatorapp.zohopublic.com/universidaddelima/formularios/page-perma/Tarjeta_UL_trabajadores2/mgQe2dzMHpU9QbK82f0fNOZntHrMBv85tPMbR8G6RKOGetdrgURKGvvTQauBuvGAvnfC3HMJGErjz4NBT6rYvE0MqVyzDqMjF8Mk?Z="+params.FCC_ZID_CRM);
+    })
+
 </script>
 
 </html>
