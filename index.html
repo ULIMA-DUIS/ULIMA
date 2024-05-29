@@ -25,10 +25,9 @@ END:VCARD`;
 
     var FCC_LINK = document.createElement("a");
     FCC_LINK.setAttribute("href", FCC_URL);
-    /*
     FCC_LINK.setAttribute("download", "contacto.vcf");
     FCC_LINK.style.visibility = 'hidden';
-    */
+    
     document.body.appendChild(FCC_LINK);
     FCC_LINK.click();
     document.body.removeChild(FCC_LINK);
