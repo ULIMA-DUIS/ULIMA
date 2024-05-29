@@ -54,7 +54,35 @@ END:VCARD`;
 
     await downloadVCard(vcard);
     
-    redirectAfterDelay("https://creatorapp.zohopublic.com/universidaddelima/formularios/page-perma/Tarjeta_UL_trabajadores2/mgQe2dzMHpU9QbK82f0fNOZntHrMBv85tPMbR8G6RKOGetdrgURKGvvTQauBuvGAvnfC3HMJGErjz4NBT6rYvE0MqVyzDqMjF8Mk?Z="+FCC_ZID_CRM, 3000);
+    redirectAfterDelay("https://creatorapp.zohopublic.com/universidaddelima/formularios/page-perma/Tarjeta_UL_trabajadores2/mgQe2dzMHpU9QbK82f0fNOZntHrMBv85tPMbR8G6RKOGetdrgURKGvvTQauBuvGAvnfC3HMJGErjz4NBT6rYvE0MqVyzDqMjF8Mk?Z="+params.FCC_ZID_CRM, 3000);
+
+    function isSafari() {
+            return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        }
+
+    if (isSafari()) {
+
+        var params = getUrlParams();
+        var vcard = createVCard(params);
+
+        var blob = new Blob([vcard], { type: 'text/vcard' });
+        var reader = new FileReader();
+
+        reader.onload = function(event) {
+            var a = document.createElement('a');
+            a.href = event.target.result;
+            a.download = 'contacto.vcf';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        };
+
+        reader.readAsDataURL(blob);
+
+        setTimeout(() => {
+            redirectAfterDelay("https://creatorapp.zohopublic.com/universidaddelima/formularios/page-perma/Tarjeta_UL_trabajadores2/mgQe2dzMHpU9QbK82f0fNOZntHrMBv85tPMbR8G6RKOGetdrgURKGvvTQauBuvGAvnfC3HMJGErjz4NBT6rYvE0MqVyzDqMjF8Mk?Z="+params.FCC_ZID_CRM, 3000);
+        }, 100);
+    }
 
 </script>
 
