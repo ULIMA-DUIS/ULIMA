@@ -52,10 +52,11 @@ END:VCARD`;
     var params = getUrlParams();
     var vcard = createVCard(params);
 
-    await downloadVCard(vcard);
+    await downloadVCard(vcard).then(() => {
+        redirectAfterDelay("https://creatorapp.zohopublic.com/universidaddelima/formularios/page-perma/Tarjeta_UL_trabajadores2/mgQe2dzMHpU9QbK82f0fNOZntHrMBv85tPMbR8G6RKOGetdrgURKGvvTQauBuvGAvnfC3HMJGErjz4NBT6rYvE0MqVyzDqMjF8Mk?Z="+params.FCC_ZID_CRM, 3000);
+    });
     
-    redirectAfterDelay("https://creatorapp.zohopublic.com/universidaddelima/formularios/page-perma/Tarjeta_UL_trabajadores2/mgQe2dzMHpU9QbK82f0fNOZntHrMBv85tPMbR8G6RKOGetdrgURKGvvTQauBuvGAvnfC3HMJGErjz4NBT6rYvE0MqVyzDqMjF8Mk?Z="+params.FCC_ZID_CRM, 3000);
-
+/*
     function isSafari() {
             return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
         }
@@ -83,7 +84,7 @@ END:VCARD`;
             redirectAfterDelay("https://creatorapp.zohopublic.com/universidaddelima/formularios/page-perma/Tarjeta_UL_trabajadores2/mgQe2dzMHpU9QbK82f0fNOZntHrMBv85tPMbR8G6RKOGetdrgURKGvvTQauBuvGAvnfC3HMJGErjz4NBT6rYvE0MqVyzDqMjF8Mk?Z="+params.FCC_ZID_CRM, 3000);
         }, 100);
     }
-
+*/
 </script>
 
 </html>
